@@ -28,7 +28,7 @@ import logging
 File_dir = input("Enter the file directory: ").strip(' " ')
 folder = Path(File_dir)
 
-def monitor_folder():
+def write_baseline():
 
     if folder.exists():
         hashes = []
@@ -51,7 +51,7 @@ def monitor_folder():
             for path, file_hash in hashes:
                 file.write(f"{path}\n{file_hash}\n")
                     
-monitor_folder()
+write_baseline()
 
 
 def read_for_hash():
