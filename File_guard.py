@@ -25,10 +25,9 @@ import shutil
 import logging
 
 
-File_dir = input("Enter the file directory: ").strip(' " ')
-folder = Path(File_dir)
 
-def write_baseline():
+
+def write_baseline(folder):
 
     if folder.exists():
         hashes = []
@@ -75,12 +74,27 @@ def monitor_folder():
     monfold = read_for_hash
     print(monfold)
 
-User_input = input("Enter the folder you wish to monitor: ").strip(' ')
+User_input = input("Enter the folder/file you wish to monitor(if file never been scanned press S): ").strip(' ')
+
+if User_input == "S":
+    File_dir = input("Enter the file directory: ").strip(' " ')
+    folder = Path(File_dir)
+    write_baseline(folder)
+
 
 with open("file_that_has_been_checked.txt", 'r') as read_file:
- 
-    read = read_file.readline().splitlines()
-    for item in read:
-        if item == User_input:
-            monitor_folder(User_input)
+        
+        read = read_file.readline().splitlines()
+        for item in read:
+            if item == folder.name:
+                    read_for_hash(folder.name)
+
+Choices = input("""
+1. Scan the folder/file baseline 
+2. Read file baseline
+3. Delete baseline
+4. Monitor file for changes
+(type in a number 1-4): """)
+
+
 
